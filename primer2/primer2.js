@@ -31,11 +31,13 @@ const shuffleAndDeal = (numPlayers, cardsPerPlayer, numDecks = 1) => {
     // if (numPlayers <= 0 && cardsPerPlayer <= 0) { // check if this can be in the same conditional statement
     //     return new Error("numPlayers and cardsPerPlayer must be a positive integer.");
     // };
-
-    let deckOfCards = createDeck(numDecks);
-    if (deckOfCards.length < (numPlayers * cardsPerPlayer)) {
+    if (52 * numDecks < (numPlayers * cardsPerPlayer)) { //hardcoding 52 to validate instead of having to create the deck first.
         throw new Error("Number of requested cards exceeds number of cards in deck.")
     }
+    let deckOfCards = createDeck(numDecks);
+    // if (deckOfCards.length < (numPlayers * cardsPerPlayer)) {
+    //     throw new Error("Number of requested cards exceeds number of cards in deck.")
+    // }
     let shuffledDeckOfCards = shuffleDeck(deckOfCards)
 
     return handOutCards(shuffledDeckOfCards, numPlayers, cardsPerPlayer)
