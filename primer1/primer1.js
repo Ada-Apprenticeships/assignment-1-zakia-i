@@ -1,4 +1,4 @@
-function temperatureConversion(temperature, fromScale, toScale){
+function temperatureConversion(temperature, fromScale, toScale){ ////
 
 // TODO: Validate the input:
 //        - Check if the temperature is null, undefined, or a non-numeric string. If so, throw an error "Invalid temperature input".
