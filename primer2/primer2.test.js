@@ -60,6 +60,12 @@ describe('Card Shuffler', () => {
         expect(hand).toHaveLength(1);
       });
     });
+
+    test('allow passed in strings', () => {
+      const result = shuffleAndDeal("2", "26");
+      expect(result).toHaveLength(2);
+      expect(result[0]).toHaveLength(26);
+    });
   });
 
   describe('Input Validation', () => {
@@ -73,12 +79,19 @@ describe('Card Shuffler', () => {
       expect(() => shuffleAndDeal(0, 5)).toThrow();
       expect(() => shuffleAndDeal(-1, 5)).toThrow();
       expect(() => shuffleAndDeal(null, 5)).toThrow();
+      expect(() => shuffleAndDeal(undefined, 5)).toThrow();
     });
 
     test('should throw error for invalid cards per hand', () => {
       expect(() => shuffleAndDeal(4, 0)).toThrow();
       expect(() => shuffleAndDeal(4, -1)).toThrow();
       expect(() => shuffleAndDeal(4, null)).toThrow();
+      expect(() => shuffleAndDeal(4, undefined)).toThrow();
+    });
+
+    test('should throw error for invalid inuts', () => {
+      expect(() => shuffleAndDeal(undefined, undefined)).toThrow();
+      expect(() => shuffleAndDeal(null, null)).toThrow();
     });
   });
 
