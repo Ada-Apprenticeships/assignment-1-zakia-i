@@ -51,7 +51,8 @@ function createLinkedList(posts) {
   
   posts.forEach(post => {
     // Validate the post structure
-    if (typeof post.text !== "string" || typeof post.timestamp !== "string" || typeof post.author !== "string"
+    if (typeof post.text !== "string" || typeof post.timestamp !== "string" || typeof post.author !== "string" ||
+      post.text.trim() === "" || post.timestamp.trim() === "" || post.author.trim() === ""
     ) {
       throw new Error("Each post must have 'text', 'timestamp', and 'author' as strings.");
     }
