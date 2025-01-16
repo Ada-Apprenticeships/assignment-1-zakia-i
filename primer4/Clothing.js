@@ -20,9 +20,12 @@ class Clothing extends Product {
 
   getProductDetails() {
     return {
-      ...super.getProductDetails(),
-      size: this.size,
-      material: this.material,
+        id: this.id,
+        name: this.name,
+        price: this.price,
+        quantity: this.quantity,
+        size: this.size,
+        material: this.material,
     };
   }
 }

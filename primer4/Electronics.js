@@ -20,9 +20,12 @@ class Electronics extends Product {
 
   getProductDetails() {
     return {
-      ...super.getProductDetails(),
-      brand: this.brand,
-      warranty: this.warranty,
+        id: this.id,
+        name: this.name,
+        price: this.price,
+        quantity: this.quantity,
+        brand: this.brand,
+        warranty: this.warranty,
     };
   }
 }

@@ -33,12 +33,7 @@ class Product {
     }
   
     getProductDetails() {
-      return {
-        id: this.id,
-        name: this.name,
-        price: this.price,
-        quantity: this.quantity,
-      };
+      throw new Error(`Method '${this.getProductDetails.name}' must be implemented.`);
     }
   }
 
