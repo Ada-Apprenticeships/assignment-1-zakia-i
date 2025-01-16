@@ -69,29 +69,30 @@ describe('Card Shuffler', () => {
   });
 
   describe('Input Validation', () => {
+    const error = "numPlayers and cardsPerPlayer must be a positive integer."
     test('should throw error if requested cards exceed deck size', () => {
       expect(() => {
         shuffleAndDeal(11, 5); // 11 * 5 = 55 cards (more than deck)
-      }).toThrow();
+      }).toThrowError("Number of requested cards exceeds number of cards in deck.");
     });
-
+    
     test('should throw error for invalid number of players', () => {
-      expect(() => shuffleAndDeal(0, 5)).toThrow();
-      expect(() => shuffleAndDeal(-1, 5)).toThrow();
-      expect(() => shuffleAndDeal(null, 5)).toThrow();
-      expect(() => shuffleAndDeal(undefined, 5)).toThrow();
+      expect(() => shuffleAndDeal(0, 5)).toThrowError(error);
+      expect(() => shuffleAndDeal(-1, 5)).toThrowError(error);
+      expect(() => shuffleAndDeal(null, 5)).toThrowError(error);
+      expect(() => shuffleAndDeal(undefined, 5)).toThrowError(error);
     });
 
     test('should throw error for invalid cards per hand', () => {
-      expect(() => shuffleAndDeal(4, 0)).toThrow();
-      expect(() => shuffleAndDeal(4, -1)).toThrow();
-      expect(() => shuffleAndDeal(4, null)).toThrow();
-      expect(() => shuffleAndDeal(4, undefined)).toThrow();
+      expect(() => shuffleAndDeal(4, 0)).toThrowError(error);
+      expect(() => shuffleAndDeal(4, -1)).toThrowError(error);
+      expect(() => shuffleAndDeal(4, null)).toThrowError(error);
+      expect(() => shuffleAndDeal(4, undefined)).toThrowError(error);
     });
 
     test('should throw error for invalid inuts', () => {
-      expect(() => shuffleAndDeal(undefined, undefined)).toThrow();
-      expect(() => shuffleAndDeal(null, null)).toThrow();
+      expect(() => shuffleAndDeal(undefined, undefined)).toThrowError(error);
+      expect(() => shuffleAndDeal(null, null)).toThrowError(error);
     });
   });
 
@@ -118,7 +119,7 @@ describe('Card Shuffler', () => {
     test('should throw error if requested cards exceed two deck size', () => {
       expect(() => {
         shuffleAndDeal(21, 5, 2); // 21 * 5 = 105 cards (more than two decks)
-      }).toThrow();
+      }).toThrow("a");
     });
   });
 
