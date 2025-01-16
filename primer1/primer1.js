@@ -18,20 +18,20 @@
 
 // }
 
-class temperatureConversion {
+class TemperatureConversion {
     constructor() {
         this.converter = {
-            'C': {
-              'F': this._celsiusToFahrenheit,
-              'K': this._celsiusToKelvin
+            "C": {
+              "F": this._celsiusToFahrenheit,
+              "K": this._celsiusToKelvin
             },
-            'F': {
-              'C': this._fahrenheitToCelsius,
-              'K': this._fahrenheitToKelvin
+            "F": {
+              "C": this._fahrenheitToCelsius,
+              "K": this._fahrenheitToKelvin
             },
-            'K': {
-              'C': this._kelvinToCelsius,
-              'F': this._kelvinToFahrenheit
+            "K": {
+              "C": this._kelvinToCelsius,
+              "F": this._kelvinToFahrenheit
             }
         };
 
@@ -74,6 +74,6 @@ class temperatureConversion {
 
 
 
-export default temperatureConversion;
+export default TemperatureConversion;
 
 

@@ -1,4 +1,4 @@
-import temperatureConversion from './primer1.js'; // Adjust paths as needed
+import TemperatureConversion from './primer1.js'; // Adjust paths as needed
 
 // To run some tests: npm test -- -t 'temperatureC' (runs all tests within the 'temperatureConversion' describe block (uses pattern matching))
 // To run one specific test, e.g. npm test -- -t 'should convert positive F' (runs the 'should convert positive Fahrenheit to Celsius' test)
@@ -130,7 +130,7 @@ describe('temperatureConversion', () => {
   let converter;
 
   beforeEach(() => {
-    converter = new temperatureConversion();
+    converter = new TemperatureConversion();
   });
 
   describe('temperatureConversion private methods', () => {
@@ -218,14 +218,16 @@ describe('temperatureConversion', () => {
 
   describe('temperatureConversion error handling', () => {
     test('should throw an error for non-numeric temperature input', () => {
-      expect(() => converter.convert('abc', 'C', 'F')).toThrow("Temperature must be a valid number.");
-      expect(() => converter.convert(null, 'C', 'F')).toThrow("Temperature must be a valid number.");
-      expect(() => converter.convert(undefined, 'C', 'F')).toThrow("Temperature must be a valid number.");
+      const error = "Temperature must be a valid number."
+      expect(() => converter.convert('abc', 'C', 'F')).toThrowError(error);
+      expect(() => converter.convert(null, 'C', 'F')).toThrowError(error);
+      expect(() => converter.convert(undefined, 'C', 'F')).toThrowError(error);
     });
 
     test('should throw an error for invalid conversion type', () => {
-      expect(() => converter.convert(32, 'C', 'B')).toThrow("Not a valid conversion.");
-      expect(() => converter.convert(0, 'X', 'C')).toThrow("Not a valid conversion.");
+      const error = "Not a valid conversion."
+      expect(() => converter.convert(32, 'C', 'B')).toThrowError(error);
+      expect(() => converter.convert(0, 'X', 'C')).toThrowError(error);
     });
   });
 });
