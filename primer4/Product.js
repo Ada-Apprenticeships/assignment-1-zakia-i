@@ -5,6 +5,9 @@ class Product {
     #quantity;
   
     constructor(id, name, price, quantity) {
+      if (new.target === Product) {
+        throw new Error("Abstract class cannot be instantiated.")
+      }
       this.#id = id;
       this.#name = name;
       this.#price = price;
