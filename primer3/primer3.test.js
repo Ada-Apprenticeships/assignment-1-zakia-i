@@ -1,11 +1,14 @@
 // Import the necessary modules
-import { createLinkedList, searchSocialMediaFeed } from './primer3.js'; // Adjust paths as needed
+// import { createLinkedList, searchSocialMediaFeed } from './primer3.js'; // Adjust paths as needed
+import { createLinkedList, searchSocialMediaFeed } from './primer3.js';
 
 describe('Social Media Feed Search', () => {
   describe('Linked List Creation', () => {
     test('should create an empty linked list', () => {
-      const feed = createLinkedList([]);
-      expect(feed).toBeNull();
+      expect(() => {
+        createLinkedList([]);
+      }).toThrowError("Posts must be a non-empty array.");
+      // expect(feed).toBeNull();
     });
 
     test('should create a linked list with single post', () => {
@@ -16,9 +19,9 @@ describe('Social Media Feed Search', () => {
       }];
       
       const feed = createLinkedList(posts);
-      expect(feed).toBeTruthy();
-      expect(feed.next).toBeNull();
-      expect(feed.data).toEqual(posts[0]);
+      expect(feed.head).toBeTruthy();
+      expect(feed.head.next).toBeNull();
+      expect(feed.head.data).toEqual(posts[0]);
     });
 
     test('should create a linked list with multiple posts in correct order', () => {
@@ -29,7 +32,7 @@ describe('Social Media Feed Search', () => {
       ];
       
       const feed = createLinkedList(posts);
-      let current = feed;
+      let current = feed.head;
       posts.forEach(post => {
         expect(current.data).toEqual(post);
         current = current.next;
