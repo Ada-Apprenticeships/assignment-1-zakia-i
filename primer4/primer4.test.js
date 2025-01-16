@@ -1,74 +1,93 @@
 // Import the necessary modules
 import Product from './Product.js';
 import Inventory from './Inventory.js';
+import Electronics from './Electronics.js';
+import Clothing from './Clothing.js';
 
 describe('Inventory', () => {
   let inventory;
-  let product1, product2;
+  let clothing1, electronics1
 
   beforeEach(() => {
     inventory = new Inventory();
-    product1 = new Product("A123", "T-shirt", 19.99, 100);
-    product2 = new Product("B456", "Jeans", 49.99, 50);
-  });
+    clothing1 = new Clothing("A123", "T-shirt", 19.99, 100, "S", "Cotton");
+    electronics1 = new Electronics("B456", "Phone", 999.99, 30, "Apple", 1);
+      });
 
   describe('Adding Products', () => {
     test('can add products to the inventory', () => {
-      inventory.addProduct(product1);
-      inventory.addProduct(product2);
+      inventory.addProduct(clothing1);
+      inventory.addProduct(electronics1);
       expect(inventory.getNumOfItems()).toBe(2);
     });
 
     test('throws error when adding a product with a duplicate ID', () => {
-      inventory.addProduct(product1);
-      expect(() => inventory.addProduct(product1)).toThrowError(`Product with ID ${product1.id} already exists.`);
+      inventory.addProduct(clothing1);
+      expect(() => inventory.addProduct(clothing1)).toThrowError(`Product with ID ${clothing1.id} already exists.`);
     });
   });
 
   describe('Updating Product Quantities', () => {
-    test('can update the quantity of a product', () => {
-      inventory.addProduct(product1);
+    test('can update the quantity of clothing', () => {
+      inventory.addProduct(clothing1);
       inventory.updateQuantity("A123", 75);
       expect(inventory.getProduct("A123").quantity).toBe(75);
     });
 
+    test('can update the quantity of clothing', () => {
+      inventory.addProduct(electronics1);
+      inventory.updateQuantity("B456", 60);
+      expect(inventory.getProduct("B456").quantity).toBe(60);
+    });
+
     test('throws error when updating the quantity of a non-existent product', () => {
-      expect(() => inventory.updateQuantity("C789", 75)).toThrowError(`Product with ID C789 not found.`);
+      expect(() => inventory.updateQuantity("E456", 1)).toThrowError(`Product with ID E456 not found.`);
     });
   });
 
   describe('Removing Products', () => {
     test('can remove a product from the inventory', () => {
-      inventory.addProduct(product1);
-      inventory.addProduct(product2);
+      inventory.addProduct(clothing1);
+      inventory.addProduct(electronics1);
       inventory.removeProduct("A123");
       expect(() => inventory.getProduct("A123")).toThrowError(`Product with ID A123 not found.`);
-      expect(inventory.getProduct("B456")).toEqual(product2.getProductDetails());
+      expect(inventory.getProduct("B456")).toEqual(electronics1.getProductDetails());
     });
 
     test('throws error when removing a non-existent product', () => {
-      expect(() => inventory.removeProduct("C789")).toThrowError(`Product with ID C789 not found.`);
+      expect(() => inventory.removeProduct("E456")).toThrowError(`Product with ID E456 not found.`);
     });
   });
 
   describe('Retrieving Product Details', () => {
     test('can retrieve the details of products', () => {
-        inventory.addProduct(product1);
-        inventory.addProduct(product2);
+        inventory.addProduct(clothing1);
+        inventory.addProduct(electronics1);
         
         expect(inventory.getProduct("A123")).toEqual({
             id: "A123",
             name: "T-shirt",
             price: 19.99,
-            quantity: 100
+            quantity: 100,
+            size: "S",
+            material: "Cotton",
+
+
         });
 
         expect(inventory.getProduct("B456")).toEqual({
             id: "B456",
-            name: "Jeans",
-            price: 49.99,
-            quantity: 50
+            name: "Phone",
+            price: 999.99,
+            quantity: 30,
+            brand: "Apple",
+            warranty: 1
         });
     });
   });
 });
+
+// need to add tests for changing attributes in clothing and electronics
+// need to add type validation
+// maybe add an interface?
+// need to add test for error when instantating a product or tryingto access getProductDetails
