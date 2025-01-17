@@ -85,9 +85,39 @@ describe('Inventory', () => {
         });
     });
   });
+
 });
 
-// need to add tests for changing attributes in clothing and electronics
+
+describe('Classes', () => {
+
+  beforeEach(() => {
+      });
+
+  describe('Abstract Product Class', () => {
+    test('throws an error when attempting to instantiate Product directly', () => {
+      expect(() => {
+        new Product("Z123", "Any Product", 5.00, 25);
+      }).toThrowError("Abstract class cannot be instantiated.");
+    });
+
+    test('throws an error when a subclass does not implement getProductDetails', () => {
+      class ProductSubclass extends Product {
+        constructor(id, name, price, quantity) {
+          super(id, name, price, quantity);
+        }
+        // No getProductDetails method implemented
+      }
+
+      const incompleteSubclass = new ProductSubclass("C789", "Product", 19.99, 20);
+
+      expect(() => {
+        incompleteSubclass.getProductDetails();
+      }).toThrowError("Method 'getProductDetails' must be implemented.");
+    });
+  });
+});
+
+
 // need to add type validation
 // maybe add an interface?
-// need to add test for error when instantating a product or tryingto access getProductDetails
