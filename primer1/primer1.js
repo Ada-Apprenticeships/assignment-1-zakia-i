@@ -1,79 +1,45 @@
-// function temperatureConversion(temperature, fromScale, toScale){
+export const celsiusToFahrenheit = (celsiusTemperature) => { return (celsiusTemperature * 9 / 5) + 32 }
+export const celsiusToKelvin = (celsiusTemperature) => { return celsiusTemperature + 273.15 }
+export const fahrenheitToCelsius = (fahrenheitTemperature) => { return (fahrenheitTemperature - 32) * 5 / 9 }
+export const fahrenheitToKelvin = (fahrenheitTemperature) => { return (fahrenheitTemperature - 32) * 5 / 9 + 273.15 }
+export const kelvinToCelsius = (kelvinTemperature) => { return kelvinTemperature - 273.15 }
+export const kelvinToFahrenheit = (kelvinTemperature) => { return (kelvinTemperature - 273.15) * 9 / 5 + 32 }
 
-// // TODO: Validate the input:
-// //        - Check if the temperature is null, undefined, or a non-numeric string. If so, throw an error "Invalid temperature input".
-// //        - Convert the temperature to a number.
-// //        - Normalise fromScale and toScale to uppercase.
-// //        - Check if fromScale and toScale are valid ( e.g. 'C', 'F'). If not, throw an error "Invalid conversion type or input scale".
+const converterMap = {
+    "C": {
+        "F": celsiusToFahrenheit,
+        "K": celsiusToKelvin
+    },
+    "F": {
+        "C": fahrenheitToCelsius,
+        "K": fahrenheitToKelvin
+    },
+    "K": {
+        "C": kelvinToCelsius,
+        "F": kelvinToFahrenheit
+    }
+};
 
-// // TODO: Define helper functions for the conversions:
-// //        - toFahrenheit(celsius): Converts Celsius to Fahrenheit.
-// //        - toCelsius(fahrenheit): Converts Fahrenheit to Celsius.
-// //        
-// // TODO: Implement the conversion logic:
-// //        - Use conditional logic to handle different toScale values (e.g. 'C', 'F').
-// //        - Within each condition, handle conversions from different fromScale values (e.g. 'C', 'F') to the target toScale.
-// //        - Use the helper functions to perform the actual conversions.
 
-
-// }
-
-class TemperatureConversion {
-    constructor() {
-        this.converter = {
-            "C": {
-              "F": this._celsiusToFahrenheit,
-              "K": this._celsiusToKelvin
-            },
-            "F": {
-              "C": this._fahrenheitToCelsius,
-              "K": this._fahrenheitToKelvin
-            },
-            "K": {
-              "C": this._kelvinToCelsius,
-              "F": this._kelvinToFahrenheit
-            }
-        };
-
+const convert = (temperature, fromScale, toScale) => {
+    temperature = parseFloat(temperature);
+    if (isNaN(temperature)) {
+        throw new Error("Temperature must be a valid number.");
     }
 
-    convert(temperature, fromScale, toScale) {
-        // abstraction, which will call the correct method
-        temperature = parseFloat(temperature);
-        if (isNaN(temperature)) {
-            throw new Error("Temperature must be a valid number.");
-        }
+    fromScale = fromScale.toUpperCase();
+    toScale = toScale.toUpperCase();
 
-        fromScale = fromScale.toUpperCase();
-        toScale = toScale.toUpperCase();
-
-        if (fromScale == toScale) {
-            return temperature;
-        }
-        if (!this.converter[fromScale] || !this.converter[fromScale][toScale]) {
-            throw new Error("Not a valid conversion.");
-          }
-      
-        const conversion = this.converter[fromScale][toScale];
-        return conversion(temperature);
+    if (fromScale == toScale) {
+        return temperature;
+    }
+    if (!converterMap[fromScale] || !converterMap[fromScale][toScale]) {
+        throw new Error("Not a valid conversion.");
     }
 
-    _celsiusToFahrenheit = (celsiusTemperature) => {return (celsiusTemperature * 9 / 5) + 32}
-
-    _celsiusToKelvin = (celsiusTemperature) => {return celsiusTemperature + 273.15}
-
-    _fahrenheitToCelsius = (fahrenheitTemperature) => {return (fahrenheitTemperature - 32) * 5 / 9}
-
-    _fahrenheitToKelvin = (fahrenheitTemperature) => {return (fahrenheitTemperature - 32) * 5 / 9 + 273.15}
-
-    _kelvinToCelsius = (kelvinTemperature) => {return kelvinTemperature - 273.15}
-
-    _kelvinToFahrenheit = (kelvinTemperature) => {return (kelvinTemperature - 273.15) * 9 / 5 + 32}
-
+    const conversion = converterMap[fromScale][toScale];
+    return conversion(temperature);
 }
 
-
-
-export default TemperatureConversion;
-
-
+export default convert;
+convert(0, 'c', 'F')
