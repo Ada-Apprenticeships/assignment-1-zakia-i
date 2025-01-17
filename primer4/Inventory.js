@@ -7,6 +7,13 @@ class Inventory {
     this.#products = new Map();
   }
 
+
+  #validateId(id) {
+    if (typeof id !== 'string' || id.trim() === '') {
+      throw new Error('ID must be a non-empty string.');
+    }
+  }
+
   addProduct(product) {
     if (!(product instanceof Product)) {
       throw new Error("Invalid product type.") //making it adhere to the product interface, so only product based objects can be added
@@ -18,6 +25,10 @@ class Inventory {
   }
 
   updateQuantity(id, quantity) {
+    this.#validateId(id)
+    if (typeof quantity !== "number" || quantity < 0) {
+      throw new Error("Quantity must be a non-negative number.");
+    }
     const product = this.#products.get(id);
     if (!product) {
       throw new Error(`Product with ID ${id} not found.`);
@@ -26,6 +37,7 @@ class Inventory {
   }
 
   getProduct(id) {
+    this.#validateId(id)
     const product = this.#products.get(id);
     if (!product) {
       throw new Error(`Product with ID ${id} not found.`);
@@ -34,6 +46,7 @@ class Inventory {
   }
 
   removeProduct(id) {
+    this.#validateId(id)
     if (!this.#products.has(id)) {
       throw new Error(`Product with ID ${id} not found.`);
     }

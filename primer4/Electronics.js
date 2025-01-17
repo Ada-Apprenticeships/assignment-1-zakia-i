@@ -6,6 +6,12 @@ class Electronics extends Product {
 
   constructor(id, name, price, quantity, brand, warranty) {
     super(id, name, price, quantity);
+    if (typeof brand !== "string" || brand.trim() === "") {
+      throw new Error("Brand must be a non-empty string.");
+    }
+    if (!Number.isInteger(warranty) || warranty < 0) {
+      throw new Error("Warranty must be a non-negative integer.");
+    }
     this.#brand = brand;
     this.#warranty = warranty;
   }

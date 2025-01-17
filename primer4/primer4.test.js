@@ -34,7 +34,7 @@ describe('Inventory', () => {
       expect(inventory.getProduct("A123").quantity).toBe(75);
     });
 
-    test('can update the quantity of clothing', () => {
+    test('can update the quantity of electronics', () => {
       inventory.addProduct(electronics1);
       inventory.updateQuantity("B456", 60);
       expect(inventory.getProduct("B456").quantity).toBe(60);
@@ -43,7 +43,14 @@ describe('Inventory', () => {
     test('throws error when updating the quantity of a non-existent product', () => {
       expect(() => inventory.updateQuantity("E456", 1)).toThrowError(`Product with ID E456 not found.`);
     });
+
+    test('throws error when updating the quantity with invalid types', () => {
+      expect(() => inventory.updateQuantity(123, 1)).toThrowError(`ID must be a non-empty string.`);
+      expect(() => inventory.updateQuantity("A123", "1")).toThrowError(`Quantity must be a non-negative number.`);
+      expect(() => inventory.updateQuantity("A123", -10)).toThrowError(`Quantity must be a non-negative number.`);
+    });
   });
+
 
   describe('Removing Products', () => {
     test('can remove a product from the inventory', () => {
@@ -56,6 +63,10 @@ describe('Inventory', () => {
 
     test('throws error when removing a non-existent product', () => {
       expect(() => inventory.removeProduct("E456")).toThrowError(`Product with ID E456 not found.`);
+    });
+
+    test('throws error when removing a product with invalid types', () => {
+      expect(() => inventory.removeProduct(123)).toThrowError(`ID must be a non-empty string.`);
     });
   });
 
@@ -71,8 +82,6 @@ describe('Inventory', () => {
             quantity: 100,
             size: "S",
             material: "Cotton",
-
-
         });
 
         expect(inventory.getProduct("B456")).toEqual({
@@ -90,9 +99,6 @@ describe('Inventory', () => {
 
 
 describe('Classes', () => {
-
-  beforeEach(() => {
-      });
 
   describe('Abstract Product Class', () => {
     test('throws an error when attempting to instantiate Product directly', () => {
@@ -115,9 +121,84 @@ describe('Classes', () => {
         incompleteSubclass.getProductDetails();
       }).toThrowError("Method 'getProductDetails' must be implemented.");
     });
+
+
+    describe('Abstract Product Class', () => {
+      class DummyProduct extends Product {
+        constructor(id, name, price, quantity) {
+          super(id, name, price, quantity);
+        }
+      
+        getProductDetails() {
+          return {
+            id: this.id,
+            name: this.name,
+            price: this.price,
+            quantity: this.quantity,
+          };
+        }
+      }
+
+      test('should throw error for invalid ID', () => {
+        expect(() => new DummyProduct('', 'Laptop', 1000, 10, 'Brand', 2)).toThrow('ID must be a non-empty string.');
+      });
+    
+      test('should throw error for invalid name', () => {
+        expect(() => new DummyProduct('1', '', 1000, 10, 'Brand', 2)).toThrow('Name must be a non-empty string.');
+      });
+    
+      test('should throw error for invalid price', () => {
+        expect(() => new DummyProduct('1', 'Laptop', -10, 10, 'Brand', 2)).toThrow('Price must be a non-negative number.');
+      });
+
+      test('should throw error for invalid quantity', () => {
+        expect(() => new DummyProduct('1', 'Laptop', 1000, -10, 'Brand', 2)).toThrow('Quantity must be a non-negative integer.');
+      });
+    });
+  });
+
+  describe('Electronics Class Tests', () => {
+    test('should instantiate Electronics correctly', () => {
+      const electronics = new Electronics('1', 'Laptop', 1000, 10, 'Brand', 2);
+      expect(electronics).toBeInstanceOf(Electronics);
+      expect(electronics.id).toBe('1');
+      expect(electronics.name).toBe('Laptop');
+      expect(electronics.price).toBe(1000);
+      expect(electronics.quantity).toBe(10);
+      expect(electronics.brand).toBe('Brand');
+      expect(electronics.warranty).toBe(2);
+    });
+  
+    test('should throw error for invalid brand', () => {
+      expect(() => new Electronics('1', 'Laptop', 1000, 10, '', 2)).toThrow('Brand must be a non-empty string.');
+    });
+  
+    test('should throw error for invalid warranty', () => {
+      expect(() => new Electronics('1', 'Laptop', 1000, 10, 'Brand', -1)).toThrow('Warranty must be a non-negative integer.');
+    });
+  });
+  
+  describe('Clothing Class Tests', () => {
+    test('should instantiate Clothing correctly', () => {
+      const clothing = new Clothing('1', 'T-Shirt', 20, 50, 'M', 'Cotton');
+      expect(clothing).toBeInstanceOf(Clothing);
+      expect(clothing.id).toBe('1');
+      expect(clothing.name).toBe('T-Shirt');
+      expect(clothing.price).toBe(20);
+      expect(clothing.quantity).toBe(50);
+      expect(clothing.size).toBe('M');
+      expect(clothing.material).toBe('Cotton');
+    });
+  
+    test('should throw error for invalid size', () => {
+      expect(() => new Clothing('1', 'T-Shirt', 20, 50, '', 'Cotton')).toThrow('Size must be a non-empty string.');
+    });
+  
+    test('should throw error for invalid material', () => {
+      expect(() => new Clothing('1', 'T-Shirt', 20, 50, 'M', '')).toThrow('Material must be a non-empty string.');
+    });
   });
 });
 
 
-// need to add type validation
 // maybe add an interface?
