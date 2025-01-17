@@ -237,6 +237,6 @@ describe("ProductFactory", () => {
   test("throws an error for unrecognized product type", () => {
     expect(() => {
       ProductFactory.createProduct("Unknown", "U789", "Unknown Product", 0, 0);
-    }).toThrowError("Product type Unknown is not recognized.");
+    }).toThrowError("Product type Unknown does not exist.");
   });
 });

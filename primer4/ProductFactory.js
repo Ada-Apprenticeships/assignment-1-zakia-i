@@ -10,7 +10,7 @@ class ProductFactory {
         case 'Electronics':
           return new Electronics(id, name, price, quantity, ...kwargs);
         default:
-          throw new Error(`Product type ${type} is not recognized.`);
+          throw new Error(`Product type ${type} does not exist.`);
       }
     }
   }
