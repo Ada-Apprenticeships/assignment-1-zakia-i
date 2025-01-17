@@ -1,5 +1,3 @@
-// Import the necessary modules
-// import { createLinkedList, searchSocialMediaFeed } from './primer3.js'; // Adjust paths as needed
 import { createLinkedList, searchSocialMediaFeed } from './primer3.js';
 
 describe('Social Media Feed Search', () => {
@@ -8,7 +6,6 @@ describe('Social Media Feed Search', () => {
       expect(() => {
         createLinkedList([]);
       }).toThrowError("Posts must be a non-empty array.");
-      // expect(feed).toBeNull();
     });
 
     test('should create a linked list with single post', () => {
@@ -61,6 +58,16 @@ describe('Social Media Feed Search', () => {
       });
     });
 
+    test('should find posts containing multiple keywords', () => {
+      const results = searchSocialMediaFeed(feed, 'great game');
+      expect(results).toHaveLength(3);
+      expect(results).toEqual([
+        { text: 'Having a great day!', timestamp: '2024-03-11 11:30:00', author: 'Bob' },
+        { text: 'Just finished a fantastic game.', timestamp: '2024-03-11 12:15:00', author: 'Aqil' },
+        { text: 'Another great post!', timestamp: '2024-03-11 13:00:00', author: 'Diana' }
+      ])
+    });
+
     test('should handle case-insensitive search', () => {
       const results = searchSocialMediaFeed(feed, 'GREAT');
       expect(results).toHaveLength(2);
@@ -80,6 +87,7 @@ describe('Social Media Feed Search', () => {
   });
 
   describe('Post Structure Validation', () => {
+    const error = "Each post must have the fields 'text', 'timestamp', and 'author' as non-empty strings."
     test('should require valid post structure', () => {
       // Valid post
       expect(() => {
@@ -90,45 +98,45 @@ describe('Social Media Feed Search', () => {
             author: 'Alice' 
           }
         ]);
-      }).not.toThrow();
+      }).not.toThrowError(error);
 
       // Invalid posts (missing properties)
       expect(() => {
         createLinkedList([
           { text: 'Valid post', timestamp: '2024-03-11 10:00:00' } // missing author
         ]);
-      }).toThrow();
+      }).toThrowError(error);
 
       expect(() => {
         createLinkedList([
           { timestamp: '2024-03-11 10:00:00', author: 'Alice' } // missing text
         ]);
-      }).toThrow();
+      }).toThrowError(error);
 
       expect(() => {
         createLinkedList([
           { text: 'Valid post', author: 'Alice' } // missing timestamp
         ]);
-      }).toThrow();
+      }).toThrowError(error);
 
       // Invalid posts (invalid property types/values)
       expect(() => {
         createLinkedList([
           { text: '', timestamp: '2024-03-11 10:00:00', author: 'Alice' } // empty text
         ]);
-      }).toThrow();
+      }).toThrowError(error);
 
       expect(() => {
         createLinkedList([
           { text: 'Valid post', timestamp: 'invalid-date', author: 'Alice' } // invalid timestamp
         ]);
-      }).toThrow();
+      }).toThrowError("Timestamp must be a valid date string.");
 
       expect(() => {
         createLinkedList([
           { text: 'Valid post', timestamp: '2024-03-11 10:00:00', author: '' } // empty author
         ]);
-      }).toThrow();
+      }).toThrowError(error);
     });
   });
 
