@@ -1,9 +1,9 @@
-export const celsiusToFahrenheit = (celsiusTemperature) => { return (celsiusTemperature * 9 / 5) + 32 }
-export const celsiusToKelvin = (celsiusTemperature) => { return celsiusTemperature + 273.15 }
-export const fahrenheitToCelsius = (fahrenheitTemperature) => { return (fahrenheitTemperature - 32) * 5 / 9 }
-export const fahrenheitToKelvin = (fahrenheitTemperature) => { return (fahrenheitTemperature - 32) * 5 / 9 + 273.15 }
-export const kelvinToCelsius = (kelvinTemperature) => { return kelvinTemperature - 273.15 }
-export const kelvinToFahrenheit = (kelvinTemperature) => { return (kelvinTemperature - 273.15) * 9 / 5 + 32 }
+export const celsiusToFahrenheit = (celsiusTemperature) => { return (celsiusTemperature * 9 / 5) + 32 };
+export const celsiusToKelvin = (celsiusTemperature) => { return celsiusTemperature + 273.15 };
+export const fahrenheitToCelsius = (fahrenheitTemperature) => { return (fahrenheitTemperature - 32) * 5 / 9 };
+export const fahrenheitToKelvin = (fahrenheitTemperature) => { return (fahrenheitTemperature - 32) * 5 / 9 + 273.15 };
+export const kelvinToCelsius = (kelvinTemperature) => { return kelvinTemperature - 273.15 };
+export const kelvinToFahrenheit = (kelvinTemperature) => { return (kelvinTemperature - 273.15) * 9 / 5 + 32 };
 
 const converterMap = {
     "C": {
@@ -42,4 +42,3 @@ const convert = (temperature, fromScale, toScale) => {
 }
 
 export default convert;
-convert(0, 'c', 'F')
