@@ -7,8 +7,8 @@ const shuffleAndDeal = (numPlayers, cardsPerPlayer, numDecks = 1) => {
     if (52 * numDecks < (numPlayers * cardsPerPlayer)) {
         throw new Error("Number of requested cards exceeds number of cards in deck.");
     };
-    let deckOfCards = createDeck(numDecks);
-    let shuffledDeckOfCards = shuffleDeck(deckOfCards);
+    const deckOfCards = createDeck(numDecks);
+    const shuffledDeckOfCards = shuffleDeck(deckOfCards);
 
     return handOutCards(shuffledDeckOfCards, numPlayers, cardsPerPlayer);
 };
