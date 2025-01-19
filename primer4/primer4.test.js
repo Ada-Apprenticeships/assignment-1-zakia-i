@@ -1,9 +1,8 @@
-// Import the necessary modules
 import Product from './Product.js';
 import Inventory from './Inventory.js';
 import Electronics from './Electronics.js';
 import Clothing from './Clothing.js';
-import ProductFactory from './ProductFactory.js'
+import ProductFactory from './ProductFactory.js';
 
 
 describe("Inventory", () => {
