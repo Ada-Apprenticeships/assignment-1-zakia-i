@@ -1,50 +1,10 @@
-class Node {
-  constructor(data) {
-    this.data = data;
-    this.next = null;
-  };
-};
+import { LinkedList } from './LinkedList.js';
 
-class LinkedList {
-  constructor() {
-    this.head = null;
-  };
-
-  append(post) {
-    const newNode = new Node(post);
-    if (!this.head) {
-      this.head = newNode;
-    } else {
-      let current = this.head;
-      while (current.next) {
-        current = current.next;
-      };
-      current.next = newNode;
-    };
-  };
-
-  search(phrase) {
-    let results = [];
-    let current = this.head;
-    const keywords = phrase.toLowerCase().split(' ');
-
-    while (current) {
-      const lowerText = current.data.text.toLowerCase();
-
-      if (keywords.some(keyword => lowerText.includes(keyword))) {
-        results.push(current.data);
-      };
-      current = current.next;
-    };
-    return results;
-  };
-};
-
-function isValidValue(value) {
+const isValidValue = (value) => {
   return typeof value === "string" && value.trim() !== "";
 };
 
-function createLinkedList(posts) {
+const createLinkedList = (posts) => {
   if (!Array.isArray(posts) || posts.length === 0) {
     throw new Error("Posts must be a non-empty array.");
   };
@@ -67,7 +27,7 @@ function createLinkedList(posts) {
   return list;
 };
 
-function searchSocialMediaFeed(feed, keyword) {
+const searchSocialMediaFeed = (feed, keyword) => {
   return feed.search(keyword);
 };
 
