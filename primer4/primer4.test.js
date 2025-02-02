@@ -141,19 +141,19 @@ describe("Classes", () => {
       }
 
       test("should throw error for invalid ID", () => {
-        expect(() => new DummyProduct("", "Laptop", 1000, 10, "Brand", 2)).toThrow("ID must be a non-empty string.");
+        expect(() => new DummyProduct("", "Laptop", 1000, 10, "Brand", 2)).toThrowError("ID must be a non-empty string.");
       });
     
       test("should throw error for invalid name", () => {
-        expect(() => new DummyProduct("1", "", 1000, 10, "Brand", 2)).toThrow("Name must be a non-empty string.");
+        expect(() => new DummyProduct("1", "", 1000, 10, "Brand", 2)).toThrowError("Name must be a non-empty string.");
       });
     
       test("should throw error for invalid price", () => {
-        expect(() => new DummyProduct("1", "Laptop", -10, 10, "Brand", 2)).toThrow("Price must be a non-negative number.");
+        expect(() => new DummyProduct("1", "Laptop", -10, 10, "Brand", 2)).toThrowError("Price must be a non-negative number.");
       });
 
       test("should throw error for invalid quantity", () => {
-        expect(() => new DummyProduct("1", "Laptop", 1000, -10, "Brand", 2)).toThrow("Quantity must be a non-negative integer.");
+        expect(() => new DummyProduct("1", "Laptop", 1000, -10, "Brand", 2)).toThrowError("Quantity must be a non-negative integer.");
       });
     });
   });
@@ -173,11 +173,11 @@ describe("Classes", () => {
     });
   
     test("should throw error for invalid brand", () => {
-      expect(() => new Electronics("1", "Laptop", 1000, 10, "", 2)).toThrow("Brand must be a non-empty string.");
+      expect(() => new Electronics("1", "Laptop", 1000, 10, "", 2)).toThrowError("Brand must be a non-empty string.");
     });
   
     test("should throw error for invalid warranty", () => {
-      expect(() => new Electronics("1", "Laptop", 1000, 10, "Brand", -1)).toThrow("Warranty must be a non-negative integer.");
+      expect(() => new Electronics("1", "Laptop", 1000, 10, "Brand", -1)).toThrowError("Warranty must be a non-negative integer.");
     });
   });
   
@@ -196,11 +196,11 @@ describe("Classes", () => {
     });
   
     test("should throw error for invalid size", () => {
-      expect(() => new Clothing("1", "T-Shirt", 20, 50, "", "Cotton")).toThrow("Size must be a non-empty string.");
+      expect(() => new Clothing("1", "T-Shirt", 20, 50, "", "Cotton")).toThrowError("Size must be a non-empty string.");
     });
   
     test("should throw error for invalid material", () => {
-      expect(() => new Clothing("1", "T-Shirt", 20, 50, "M", "")).toThrow("Material must be a non-empty string.");
+      expect(() => new Clothing("1", "T-Shirt", 20, 50, "M", "")).toThrowError("Material must be a non-empty string.");
     });
   });
 });
