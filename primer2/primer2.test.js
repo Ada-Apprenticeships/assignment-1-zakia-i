@@ -119,7 +119,7 @@ describe('Card Shuffler', () => {
     test('should throw error if requested cards exceed two deck size', () => {
       expect(() => {
         shuffleAndDeal(21, 5, 2); // 21 * 5 = 105 cards (more than two decks)
-      }).toThrow("a");
+      }).toThrowError("Number of requested cards exceeds number of cards in deck.");
     });
   });
 
