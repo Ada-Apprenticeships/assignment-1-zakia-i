@@ -15,4 +15,5 @@ class ProductFactory {
   }
 }
 
+
 export default ProductFactory

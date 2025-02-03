@@ -36,4 +36,5 @@ class Electronics extends Product {
   }
 }
 
+
 export default Electronics;

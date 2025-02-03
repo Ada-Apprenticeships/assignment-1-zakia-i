@@ -16,7 +16,7 @@ class Inventory {
 
   addProduct(product) {
     if (!(product instanceof Product)) {
-      throw new Error("Invalid product type.") //making it adhere to the product interface, so only product based objects can be added
+      throw new Error("Invalid product type.")
     }
     if (this.#products.has(product.id)) {
       throw new Error(`Product with ID ${product.id} already exists.`);
@@ -57,5 +57,6 @@ class Inventory {
     return this.#products.size;
   }
 }
+
 
 export default Inventory;
