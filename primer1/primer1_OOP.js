@@ -18,7 +18,6 @@ class TemperatureConversion {
   }
 
   convert(temperature, fromScale, toScale) {
-    // abstraction, which will call the correct method
     temperature = parseFloat(temperature);
     if (isNaN(temperature)) {
       throw new Error("Temperature must be a valid number.");
@@ -51,7 +50,6 @@ class TemperatureConversion {
   _kelvinToFahrenheit = (kelvinTemperature) => { return (kelvinTemperature - 273.15) * 9 / 5 + 32 }
 
 }
-
 
 
 export default TemperatureConversion;
